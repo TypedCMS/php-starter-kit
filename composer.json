@@ -1,0 +1,61 @@
+{
+    "name": "typedcms/php-starter-kit",
+    "description": "A simple starter kit for using TypedCMS with PHP.",
+    "keywords": [
+        "TypedCMS",
+        "PHP",
+        "Starter Kit",
+        "SDK",
+        "API"
+    ],
+    "homepage": "https://typedcms.com/technologies/php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "George Palmer",
+            "email": "george@typedcms.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.0",
+        "kamermans/guzzle-oauth2-subscriber": "^1.0",
+        "swisnl/json-api-client": "^2.3",
+        "illuminate/container": "^10.26",
+        "illuminate/collections": "^10.26",
+        "nesbot/carbon": "^2.71"
+    },
+    "require-dev": {
+        "php-http/mock-client": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.10.38"
+    },
+    "autoload": {
+        "psr-4": {
+            "TypedCMS\\PHPStarterKit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TypedCMS\\PHPStarterKit\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
