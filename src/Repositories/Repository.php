@@ -13,6 +13,12 @@ use Swis\JsonApi\Client\Repository as BaseRepository;
 use TypedCMS\PHPStarterKit\Repositories\Concerns\DeterminesEndpoint;
 use TypedCMS\PHPStarterKit\StarterKit;
 
+use function array_filter;
+use function array_unique;
+use function count;
+use function explode;
+use function implode;
+
 abstract class Repository extends BaseRepository
 {
     use DeterminesEndpoint;
@@ -22,6 +28,11 @@ abstract class Repository extends BaseRepository
      * true if you wish to use the management api by default.
      */
     protected bool $mapi = false;
+
+    /**
+     * @var array<string>
+     */
+    protected array $with = [];
 
     static public function make(): static
     {
@@ -35,7 +46,7 @@ abstract class Repository extends BaseRepository
     {
         $parameters += ['all' => true];
 
-        return $this->handleErrors(parent::all($parameters), strict: true);
+        return $this->handleErrors(parent::all($this->getParameters($parameters)), strict: true);
     }
 
     /**
@@ -43,7 +54,7 @@ abstract class Repository extends BaseRepository
      */
     public function take(array $parameters = [])
     {
-        return $this->handleErrors(parent::take($parameters), strict: true);
+        return $this->handleErrors(parent::take($this->getParameters($parameters)), strict: true);
     }
 
     /**
@@ -51,7 +62,7 @@ abstract class Repository extends BaseRepository
      */
     public function find(string $id, array $parameters = []): DocumentInterface
     {
-        return $this->handleErrors(parent::find($id, $parameters));
+        return $this->handleErrors(parent::find($id, $this->getParameters($parameters)));
     }
 
     /**
@@ -59,7 +70,7 @@ abstract class Repository extends BaseRepository
      */
     public function findOrFail(string $id, array $parameters = []): DocumentInterface
     {
-        return $this->handleErrors(parent::find($id, $parameters), fail: true);
+        return $this->handleErrors(parent::find($id, $this->getParameters($parameters)), fail: true);
     }
 
     /**
@@ -69,7 +80,7 @@ abstract class Repository extends BaseRepository
     {
         $this->mapi();
 
-        return parent::save($item, $parameters);
+        return parent::save($item, $this->getParameters($parameters));
     }
 
     /**
@@ -79,7 +90,7 @@ abstract class Repository extends BaseRepository
     {
         $this->mapi();
 
-        return parent::delete($id, $parameters);
+        return parent::delete($id, $this->getParameters($parameters));
     }
 
     protected function handleErrors(DocumentInterface $document, bool $fail = false, bool $strict = false): DocumentInterface
@@ -103,6 +114,23 @@ abstract class Repository extends BaseRepository
         }
 
         return $document;
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     *
+     * @return array<string, mixed>
+     */
+    protected function getParameters(array $parameters): array
+    {
+        if (count($this->with) !== 0) {
+            $parameters['include'] = implode(',', array_filter(array_unique([
+                ...$this->with,
+                ...explode(',', $parameters['include'] ?? ''),
+            ])));
+        }
+
+        return $parameters;
     }
 
     protected function handle404Error(DocumentInterface $document): void
