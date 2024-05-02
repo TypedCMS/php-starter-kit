@@ -9,6 +9,7 @@ use RegexIterator;
 use SplFileInfo;
 use Swis\JsonApi\Client\Interfaces\ItemInterface;
 use TypedCMS\PHPStarterKit\Models\Construct;
+use TypedCMS\PHPStarterKit\Models\Media;
 use TypedCMS\PHPStarterKit\Models\Resolvers\Contracts\ResolvesModels;
 use TypedCMS\PHPStarterKit\StarterKit;
 
@@ -23,6 +24,10 @@ class BasicResolver implements ResolvesModels
     {
         if ($type === 'constructs' || $type === 'globals') {
             return new Construct();
+        }
+
+        if ($type === 'media') {
+            return new Media();
         }
 
         if (str_starts_with($type, 'constructs:')) {
