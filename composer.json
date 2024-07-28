@@ -17,18 +17,18 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^7.0",
         "kamermans/guzzle-oauth2-subscriber": "^1.0",
-        "swisnl/json-api-client": "^2.3",
-        "illuminate/container": "^9.0|^10.0",
-        "illuminate/collections": "^9.0|^10.0",
+        "swisnl/json-api-client": "^2.4",
+        "illuminate/container": "^10.0|^11.0",
+        "illuminate/collections": "^10.0|^11.0",
         "nesbot/carbon": "^2.71"
     },
     "require-dev": {
         "php-http/mock-client": "^1.2",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1.10.38"
     },
     "autoload": {
