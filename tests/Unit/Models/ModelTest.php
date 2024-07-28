@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace TypedCMS\PHPStarterKit\Tests\Unit\Models;
 
 use Carbon\Carbon;
-use PHPUnit\Framework\TestCase;
 use TypedCMS\PHPStarterKit\Models\Model;
+use TypedCMS\PHPStarterKit\Tests\TestCase;
 
 final class ModelTest extends TestCase
 {

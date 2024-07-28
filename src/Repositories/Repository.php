@@ -145,7 +145,7 @@ abstract class Repository extends BaseRepository
 
     protected function handle404Error(DocumentInterface $document): void
     {
-
+        throw new RuntimeException('The requested resource was not found.');
     }
 
     protected function logError(Error $error): void
