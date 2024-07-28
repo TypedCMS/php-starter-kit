@@ -16,7 +16,7 @@ source package developers and contributors on which it is built.
 
 _This package is maintained by [Honeystone](https://github.com/honeystone)._
 
-## Installation & Usage Instructions
+## Installation & usage instructions
 
 See the [quickstart guide](https://typedcms.com/technologies/php) for installation and usage instructions.
 
