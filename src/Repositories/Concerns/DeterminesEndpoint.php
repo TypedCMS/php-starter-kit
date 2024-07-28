@@ -6,6 +6,8 @@ namespace TypedCMS\PHPStarterKit\Repositories\Concerns;
 
 use TypedCMS\PHPStarterKit\StarterKit;
 
+use function trim;
+
 trait DeterminesEndpoint
 {
     public static string $apiEndpoint = 'https://api.tcms.io/';
@@ -45,12 +47,12 @@ trait DeterminesEndpoint
 
     public function getApiBaseUri(): string
     {
-        return static::$apiEndpoint . $this->getTeamProjectSegment();
+        return static::$apiEndpoint.$this->getTeamProjectSegment();
     }
 
     public function getMapiBaseUri(): string
     {
-        return static::$mapiEndpoint . $this->getTeamProjectSegment();
+        return static::$mapiEndpoint.$this->getTeamProjectSegment();
     }
 
     public function isMapi(): bool
@@ -65,6 +67,6 @@ trait DeterminesEndpoint
 
     protected function getTeamProjectSegment(): string
     {
-        return trim(StarterKit::config('base_uri'), '/') . '/';
+        return trim(StarterKit::config('base_uri'), '/').'/';
     }
 }

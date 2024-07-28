@@ -6,6 +6,7 @@ namespace TypedCMS\PHPStarterKit\Models;
 
 use Carbon\Carbon;
 use Swis\JsonApi\Client\Item;
+use TypedCMS\PHPStarterKit\Models\Concerns\HasAutoCamelFields;
 
 /**
  * @property string $id
@@ -14,6 +15,8 @@ use Swis\JsonApi\Client\Item;
  */
 class Model extends Item
 {
+    use HasAutoCamelFields;
+
     public function getCreatedAttribute(): Carbon
     {
         return Carbon::parse($this->attributes['created']);

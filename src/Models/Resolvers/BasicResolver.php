@@ -86,7 +86,7 @@ class BasicResolver implements ResolvesModels
 
             /** @var object $model */
             $model = StarterKit::container(
-                $this->getNamespace() . '\\' . $file->getBasename('.php'),
+                $this->getNamespace().'\\'.$file->getBasename('.php'),
                 compact('global'),
             );
 

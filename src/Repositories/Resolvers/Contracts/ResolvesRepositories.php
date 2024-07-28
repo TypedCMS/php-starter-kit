@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypedCMS\PHPStarterKit\Repositories\Resolvers\Contracts;
 
-use TypedCMS\PHPStarterKit\Repositories\ConstructsRepository;
 use TypedCMS\PHPStarterKit\Repositories\Contracts\CollectsConstructs;
 use TypedCMS\PHPStarterKit\Repositories\Repository;
 

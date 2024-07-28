@@ -51,11 +51,11 @@ class ItemParser extends BaseItemParser
         ) {
 
             if ($document->type === 'globals') {
-                $document->type = 'globals:' . $document->meta->type;
+                $document->type = 'globals:'.$document->meta->type;
             }
 
             if ($document->type === 'constructs') {
-                $document->type = 'constructs:' . $document->meta->type;
+                $document->type = 'constructs:'.$document->meta->type;
             }
         }
 

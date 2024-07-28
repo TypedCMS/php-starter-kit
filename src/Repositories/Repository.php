@@ -41,60 +41,70 @@ abstract class Repository extends BaseRepository
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function all(array $parameters = []): DocumentInterface
+    public function all(array $parameters = [], array $headers = []): DocumentInterface
     {
         $parameters += ['all' => true];
 
-        return $this->handleErrors(parent::all($this->getParameters($parameters)), strict: true);
+        return $this->handleErrors(parent::all($this->getParameters($parameters), $headers), strict: true);
     }
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function take(array $parameters = [])
+    public function take(array $parameters = [], array $headers = []): DocumentInterface
     {
-        return $this->handleErrors(parent::take($this->getParameters($parameters)), strict: true);
+        return $this->handleErrors(parent::take($this->getParameters($parameters), $headers), strict: true);
     }
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function find(string $id, array $parameters = []): DocumentInterface
+    public function find(string $id, array $parameters = [], array $headers = []): DocumentInterface
     {
-        return $this->handleErrors(parent::find($id, $this->getParameters($parameters)));
+        return $this->handleErrors(parent::find($id, $this->getParameters($parameters), $headers));
     }
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function findOrFail(string $id, array $parameters = []): DocumentInterface
+    public function findOrFail(string $id, array $parameters = [], array $headers = []): DocumentInterface
     {
-        return $this->handleErrors(parent::find($id, $this->getParameters($parameters)), fail: true);
+        return $this->handleErrors(parent::find($id, $this->getParameters($parameters), $headers), fail: true);
     }
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function save(ItemInterface $item, array $parameters = []): DocumentInterface
+    public function save(ItemInterface $item, array $parameters = [], array $headers = []): DocumentInterface
     {
         $this->mapi();
 
-        return parent::save($item, $this->getParameters($parameters));
+        return parent::save($item, $this->getParameters($parameters), $headers);
     }
 
     /**
      * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $headers
      */
-    public function delete(string $id, array $parameters = []): DocumentInterface
+    public function delete(string $id, array $parameters = [], array $headers = []): DocumentInterface
     {
         $this->mapi();
 
-        return parent::delete($id, $this->getParameters($parameters));
+        return parent::delete($id, $this->getParameters($parameters), $headers);
     }
 
-    protected function handleErrors(DocumentInterface $document, bool $fail = false, bool $strict = false): DocumentInterface
-    {
+    protected function handleErrors(
+        DocumentInterface $document,
+        bool $fail = false,
+        bool $strict = false,
+    ): DocumentInterface {
+
         if ($document instanceof InvalidResponseDocument || $document->hasErrors()) {
 
             if (!$strict && $document->getResponse()->getStatusCode() === 404) {

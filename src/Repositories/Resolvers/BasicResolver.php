@@ -71,10 +71,10 @@ class BasicResolver implements ResolvesRepositories
             foreach ($files as $file) {
 
                 /** @var object $repo */
-                $repo = StarterKit::container($this->getNamespace() . '\\' . $file->getBasename('.php'));
+                $repo = StarterKit::container($this->getNamespace().'\\'.$file->getBasename('.php'));
 
                 if (!$repo instanceof Repository) {
-                    throw new UnexpectedValueException('Resolved repositories must be instances of ' . Repository::class);
+                    throw new UnexpectedValueException('Resolved repositories must be instances of '.Repository::class);
                 }
 
                 $this->repos[] = $repo;

@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace TypedCMS\PHPStarterKit\Models;
 
-use Closure;
 use Swis\JsonApi\Client\Meta;
-use TypedCMS\PHPStarterKit\Models\Resolvers\Contracts\ResolvesModels;
-use TypedCMS\PHPStarterKit\StarterKit;
 use UnexpectedValueException;
 
 /**
@@ -25,8 +22,10 @@ class Construct extends Model
     /**
      * @param array<string, mixed> $attributes
      */
-    public function __construct(array $attributes = [], private bool $global = false)
-    {
+    public function __construct(
+        array $attributes = [],
+        private readonly bool $global = false,
+    ) {
         parent::__construct($attributes);
     }
 
@@ -52,51 +51,6 @@ class Construct extends Model
         $this->blueprint = (string) $meta['type'];
 
         return parent::setMeta($meta);
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return Construct|$this
-     */
-    public function specialize(): Construct|static
-    {
-        $type = $this->getMeta()['type'] ?? null;
-
-        if ($type !== null) {
-
-            $model = $this->getResolver()->resolve('constructs:' . $type);
-
-            if ($model instanceof Construct) {
-                return $model->hydrateSpecializedModel($this, fn () => [$this->attributes, $this->relations]);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return $this
-     */
-    public function hydrateSpecializedModel(Construct $construct, Closure $pipe): static
-    {
-        $this->setId($construct->getId());
-        $this->setMeta($construct->getMeta());
-        $this->setLinks($construct->getLinks());
-
-        [$this->attributes, $this->relations] = $pipe();
-
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     */
-    protected function getResolver(): ResolvesModels
-    {
-        return StarterKit::container(ResolvesModels::class);
     }
 }
 
