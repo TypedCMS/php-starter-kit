@@ -14,7 +14,7 @@ collections and blueprints.
 This starter kit wouldn't be possible without the hard work of the many open
 source package developers and contributors on which it is built.
 
-_This package is maintained by [Honeystone](https://honeystone.com)._
+_This package is maintained by [Honeystone](https://github.com/honeystone)._
 
 ## Installation & Usage Instructions
 
