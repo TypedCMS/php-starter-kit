@@ -13,7 +13,7 @@ use function str_starts_with;
  * @property-read string $url
  * @property-read object $conversions
  * @property-read array $conversionsInProgress
- * @property-read string|null $constraint_url
+ * @property-read string|null $constraintUrl
  */
 class Media extends Model
 {
