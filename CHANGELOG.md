@@ -8,3 +8,4 @@
 - Dropped support for PHP < `8.2`.
 - Removed deprecated specialised model hydration.
 - Model fields are now automatically available in camel case.
+- Ported missing tests from the Laravel starter kit (from which this kit is derived).
