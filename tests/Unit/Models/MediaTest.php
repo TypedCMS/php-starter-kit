@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace TypedCMS\PHPStarterKit\Tests\Unit\Models;
 
+use PHPUnit\Framework\Attributes\Test;
 use TypedCMS\PHPStarterKit\Models\Media;
 use TypedCMS\PHPStarterKit\Tests\TestCase;
 
 final class MediaTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function itHaAMediaType(): void
     {
-        $this->assertEquals('media', (new Media())->getType());
+        $this->assertEquals('media', (new Media)->getType());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itAutomaticallyLocatesTheFieldConstraint(): void
     {
         $model = new Media(['conversions' => [
@@ -31,9 +28,7 @@ final class MediaTest extends TestCase
         $this->assertEquals('https://foo.bar/image-constraint-888.webp', $model->constraint_url);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itReturnsNullWithoutAFieldConstraint(): void
     {
         $model = new Media(['conversions' => [

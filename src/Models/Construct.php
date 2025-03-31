@@ -53,4 +53,3 @@ class Construct extends Model
         return parent::setMeta($meta);
     }
 }
-

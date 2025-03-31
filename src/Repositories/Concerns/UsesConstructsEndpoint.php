@@ -26,7 +26,7 @@ trait UsesConstructsEndpoint
             return "{$this->getBaseUri()}constructs/{$this->getBlueprint()}";
         }
 
-        return $this->getBaseUri() . $this->getCollection();
+        return $this->getBaseUri().$this->getCollection();
     }
 
     final public function getSpecifiedEndpoint(): ?string

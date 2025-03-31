@@ -62,4 +62,3 @@ class ItemParser extends BaseItemParser
         return $document;
     }
 }
-

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TypedCMS\PHPStarterKit\Tests\Unit\Repositories;
 
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Swis\JsonApi\Client\Document;
@@ -21,7 +22,7 @@ final class RepositoryTest extends TestCase
 
     private string $mapiEndpoint;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->apiEndpoint = Repository::$apiEndpoint;
         $this->mapiEndpoint = Repository::$mapiEndpoint;
@@ -29,52 +30,44 @@ final class RepositoryTest extends TestCase
         StarterKit::configure(['base_uri' => '@foo/bar']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itUsesTheSpecifiedEndpoint(): void
     {
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class);
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame('things', $repository->getSpecifiedEndpoint());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itUsesApiEndpoints(): void
     {
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class);
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($this->getApiEndpoint('things'), $repository->getEndpoint());
         $this->assertSame('things', $repository->getSpecifiedEndpoint());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itUsesMapiEndpoints(): void
     {
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class);
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($this->getMapiEndpoint('things'), $repository->mapi()->getEndpoint());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itGetsAll(): void
     {
-        $document = new Document();
+        $document = new Document;
 
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class,
@@ -86,17 +79,15 @@ final class RepositoryTest extends TestCase
             }
         );
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($document, $repository->all(['foo' => 'bar']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itTakesOne(): void
     {
-        $document = new Document();
+        $document = new Document;
 
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class,
@@ -108,17 +99,15 @@ final class RepositoryTest extends TestCase
             }
         );
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($document, $repository->take(['foo' => 'bar']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itFindsOne(): void
     {
-        $document = new Document();
+        $document = new Document;
 
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class,
@@ -130,17 +119,15 @@ final class RepositoryTest extends TestCase
             }
         );
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($document, $repository->find('foo', ['bar' => 'baz']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanFindOneWithFindOrFail(): void
     {
-        $document = new Document();
+        $document = new Document;
 
         /** @var DocumentClientInterface $client */
         $client = $this->mock(DocumentClientInterface::class,
@@ -152,14 +139,12 @@ final class RepositoryTest extends TestCase
             }
         );
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->assertSame($document, $repository->findOrFail('foo', ['bar' => 'baz']));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanFailWithFindOrFail(): void
     {
         $response = $this->mock(ResponseInterface::class,
@@ -187,7 +172,7 @@ final class RepositoryTest extends TestCase
             }
         );
 
-        $repository = new Repository($client, new DocumentFactory());
+        $repository = new Repository($client, new DocumentFactory);
 
         $this->expectException(RuntimeException::class);
 

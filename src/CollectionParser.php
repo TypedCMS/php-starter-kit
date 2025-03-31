@@ -13,4 +13,3 @@ class CollectionParser extends BaseCollectionParser
         parent::__construct($itemParser);
     }
 }
-

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0 - 2025-03-31
+
+- Bumped dependencies.
+- Cleaned up style issues.
+
 ## 2.0.0 - 2024-07-28
 
 - Now maintained by [Honeystone](https://github.com/honeystone).

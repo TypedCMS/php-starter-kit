@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace TypedCMS\PHPStarterKit\Tests\Unit\Models\Resolvers;
 
+use PHPUnit\Framework\Attributes\Test;
+use TypedCMS\PHPStarterKit\Models\Construct;
+use TypedCMS\PHPStarterKit\Models\Resolvers\BasicResolver;
 use TypedCMS\PHPStarterKit\StarterKit;
 use TypedCMS\PHPStarterKit\Tests\Fixture\Models\Foo;
 use TypedCMS\PHPStarterKit\Tests\Fixture\Models\FooConstruct;
-use TypedCMS\PHPStarterKit\Models\Construct;
-use TypedCMS\PHPStarterKit\Models\Resolvers\BasicResolver;
 use TypedCMS\PHPStarterKit\Tests\TestCase;
 
 use function dirname;
@@ -17,15 +18,15 @@ final class BasicResolverTest extends TestCase
 {
     private BasicResolver $resolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->resolver = new class extends BasicResolver {
-
+        $this->resolver = new class extends BasicResolver
+        {
             protected function getPath(): string
             {
-                return dirname(__DIR__, 3) . '/Fixture/Models';
+                return dirname(__DIR__, 3).'/Fixture/Models';
             }
 
             protected function getNamespace(): string
@@ -35,9 +36,7 @@ final class BasicResolverTest extends TestCase
         };
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesAModelByResourceType(): void
     {
         $model = $this->resolver->resolve('bars');
@@ -45,17 +44,13 @@ final class BasicResolverTest extends TestCase
         $this->assertEquals($model->getType(), 'bars');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesNullByResourceTypeForModelsThatDontExist(): void
     {
         $this->assertNull($this->resolver->resolve('baz'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesTheDefaultConstructModelForConstructs(): void
     {
         $model = $this->resolver->resolve('constructs');
@@ -63,9 +58,7 @@ final class BasicResolverTest extends TestCase
         $this->assertInstanceOf(Construct::class, $model);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesTheDefaultConstructModelForGlobals(): void
     {
         /** @var Construct $model */
@@ -74,9 +67,7 @@ final class BasicResolverTest extends TestCase
         $this->assertInstanceOf(Construct::class, $model);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesASpecialisedConstructModelByResourceTypePath(): void
     {
         $model = $this->resolver->resolve('constructs:foo');
@@ -84,9 +75,7 @@ final class BasicResolverTest extends TestCase
         $this->assertInstanceOf(FooConstruct::class, $model);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesAGenericConstructModelByResourceTypePath(): void
     {
         $model = $this->resolver->resolve('constructs:baz');
@@ -94,9 +83,7 @@ final class BasicResolverTest extends TestCase
         $this->assertInstanceOf(Construct::class, $model);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesASpecialisedGlobalModelByResourceTypePath(): void
     {
         /** @var FooConstruct $model */
@@ -107,9 +94,7 @@ final class BasicResolverTest extends TestCase
         $this->assertTrue($model->isGlobal());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesAGenericGlobalsModelByResourceTypePath(): void
     {
         /** @var Construct $model */
@@ -120,9 +105,7 @@ final class BasicResolverTest extends TestCase
         $this->assertTrue($model->isGlobal());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSkipsInvalidModels(): void
     {
         StarterKit::container()->instance(Foo::class, new class {});
@@ -130,16 +113,14 @@ final class BasicResolverTest extends TestCase
         $this->assertNull($this->resolver->resolve('foo'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesWhenThePathDoesNotExist(): void
     {
-        $resolver = new class extends BasicResolver {
-
+        $resolver = new class extends BasicResolver
+        {
             protected function getPath(): string
             {
-                return dirname(__DIR__, 3) . '/Fixture/NotModels';
+                return dirname(__DIR__, 3).'/Fixture/NotModels';
             }
 
             protected function getNamespace(): string

@@ -27,4 +27,3 @@ class Model extends Item
         return Carbon::parse($this->attributes['updated']);
     }
 }
-

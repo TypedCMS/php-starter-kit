@@ -15,7 +15,7 @@ trait ProvidesHierarchicalConstructs
     /**
      * @param array<string, mixed> $parameters
      */
-    public abstract function all(array $parameters = []): DocumentInterface;
+    abstract public function all(array $parameters = []): DocumentInterface;
 
     /**
      * @param array<string, mixed> $parameters

@@ -23,11 +23,11 @@ class BasicResolver implements ResolvesModels
     public function resolve(string $type): ?ItemInterface
     {
         if ($type === 'constructs' || $type === 'globals') {
-            return new Construct();
+            return new Construct;
         }
 
         if ($type === 'media') {
-            return new Media();
+            return new Media;
         }
 
         if (str_starts_with($type, 'constructs:')) {

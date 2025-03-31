@@ -34,7 +34,7 @@ abstract class Repository extends BaseRepository
      */
     protected array $with = [];
 
-    static public function make(): static
+    public static function make(): static
     {
         return StarterKit::container(static::class);
     }
@@ -148,9 +148,5 @@ abstract class Repository extends BaseRepository
         throw new RuntimeException('The requested resource was not found.');
     }
 
-    protected function logError(Error $error): void
-    {
-
-    }
+    protected function logError(Error $error): void {}
 }
-

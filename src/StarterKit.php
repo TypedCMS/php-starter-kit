@@ -50,7 +50,7 @@ class StarterKit
         'models_resolver' => ModelsBasicResolver::class,
         'repositories_path' => '/path/to/my/repositories',
         'repositories_namespace' => 'App\\Repositories',
-        'repositories_resolver' => RepositoriesBasicResolver::class
+        'repositories_resolver' => RepositoriesBasicResolver::class,
     ];
 
     /**

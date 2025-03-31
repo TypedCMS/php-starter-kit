@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace TypedCMS\PHPStarterKit\Tests\Unit\Repositories\Resolvers;
 
+use PHPUnit\Framework\Attributes\Test;
 use TypedCMS\PHPStarterKit\Repositories\ConstructsRepository;
 use TypedCMS\PHPStarterKit\Repositories\Repository;
+use TypedCMS\PHPStarterKit\Repositories\Resolvers\BasicResolver;
 use TypedCMS\PHPStarterKit\StarterKit;
 use TypedCMS\PHPStarterKit\Tests\Fixture\Repositories\FooRepository;
 use TypedCMS\PHPStarterKit\Tests\TestCase;
-use TypedCMS\PHPStarterKit\Repositories\Resolvers\BasicResolver;
 use UnexpectedValueException;
 
 use function dirname;
@@ -18,15 +19,15 @@ final class BasicResolverTest extends TestCase
 {
     private BasicResolver $resolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->resolver = new class extends BasicResolver {
-
+        $this->resolver = new class extends BasicResolver
+        {
             protected function getPath(): string
             {
-                return dirname(__DIR__, 3) . '/Fixture/Repositories';
+                return dirname(__DIR__, 3).'/Fixture/Repositories';
             }
 
             protected function getNamespace(): string
@@ -36,9 +37,7 @@ final class BasicResolverTest extends TestCase
         };
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesRepositoriesByBlueprint(): void
     {
         $repos = $this->resolver->resolveByBlueprint('foo');
@@ -52,9 +51,7 @@ final class BasicResolverTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesRepositoriesByEndpoint(): void
     {
         $repos = $this->resolver->resolveByEndpoint('bars');
@@ -68,9 +65,7 @@ final class BasicResolverTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itThrowsAnExceptionWhenEncounteringInvalidRepos(): void
     {
         $this->expectException(UnexpectedValueException::class);
@@ -80,16 +75,14 @@ final class BasicResolverTest extends TestCase
         $this->resolver->resolveByEndpoint('foos');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itResolvesWhenThePathDoesNotExist(): void
     {
-        $resolver = new class extends BasicResolver {
-
+        $resolver = new class extends BasicResolver
+        {
             protected function getPath(): string
             {
-                return dirname(__DIR__, 3) . '/Fixture/NotRepositories';
+                return dirname(__DIR__, 3).'/Fixture/NotRepositories';
             }
 
             protected function getNamespace(): string

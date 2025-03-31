@@ -28,7 +28,7 @@ trait DeterminesEndpoint
 
     public function getEndpoint(): string
     {
-        return $this->getBaseUri() . ($this->getSpecifiedEndpoint() ?? '');
+        return $this->getBaseUri().($this->getSpecifiedEndpoint() ?? '');
     }
 
     public function getSpecifiedEndpoint(): ?string

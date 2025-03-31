@@ -11,7 +11,7 @@ use TypedCMS\PHPStarterKit\Models\Resolvers\Contracts\ResolvesModels;
 
 class TypeMapper extends BaseTypeMapper
 {
-    public function __construct(protected ResolvesModels $resolver) { }
+    public function __construct(protected ResolvesModels $resolver) {}
 
     public function hasMapping(string $type): bool
     {
@@ -20,7 +20,6 @@ class TypeMapper extends BaseTypeMapper
 
     public function getMapping(string $type): ItemInterface
     {
-        return $this->resolver->resolve($type) ?? (new Model())->setType($type);
+        return $this->resolver->resolve($type) ?? (new Model)->setType($type);
     }
 }
-
