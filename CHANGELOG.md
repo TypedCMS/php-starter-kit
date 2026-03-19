@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 - 2026-03-19
+
+- Removed deprecated warnings on PHP 8.5.
+- Upgraded dependencies for Laravel 13.
+
 ## 2.1.0 - 2025-03-31
 
 - Bumped dependencies.

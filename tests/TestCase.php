@@ -15,7 +15,7 @@ use function func_get_args;
 
 abstract class TestCase extends PHPUnitTestCase
 {
-    protected function mock(string $abstract, Closure $mock = null): MockInterface
+    protected function mock(string $abstract, ?Closure $mock = null): MockInterface
     {
         return StarterKit::container()->instance($abstract, Mockery::mock(...array_filter(func_get_args())));
     }
